@@ -50,8 +50,20 @@ allocated memory using the munmap system call.
 Input Parameter: Nothing
 Returns: Nothing
 */
-void mems_finish(){
-    
+void mems_finish() {
+
+    // No need to unmap, as we're not using mmap
+
+    // Just reset the MeMS structure and free_list
+
+    mems_system->free_list = NULL;
+
+    mems_system->mem_start = NULL;
+
+    mems_system->used_pages = 0;
+
+    mems_system->unused_memory = 0;
+
 }
 
 
