@@ -29,7 +29,17 @@ Initializes all the required parameters for the MeMS system. The main parameters
 Input Parameter: Nothing
 Returns: Nothing
 */
-void mems_init(){
+void mems_init() {
+
+    mems_system = (MeMS*)mems_memory;
+
+    mems_system->free_list = NULL;
+
+    mems_system->mem_start = &mems_memory[sizeof(MeMS)];
+
+    mems_system->used_pages = 0;
+
+    mems_system->unused_memory = MEMS_MEMORY_SIZE - sizeof(MeMS);
 
 }
 
