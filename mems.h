@@ -29,6 +29,15 @@ Initializes all the required parameters for the MeMS system. The main parameters
 Input Parameter: Nothing
 Returns: Nothing
 */
+
+struct MainChainNode {
+    int memory_size;
+    SubChainNode *sub_chain;
+    struct MainChainNode* next;
+    struct MainChainNode* prev;
+};
+
+
 void mems_init() {
 
     mems_system = (MeMS*)mems_memory;
@@ -42,6 +51,7 @@ void mems_init() {
     mems_system->unused_memory = MEMS_MEMORY_SIZE - sizeof(MeMS);
 
 }
+
 
 
 /*
