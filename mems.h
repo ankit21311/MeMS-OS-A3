@@ -30,6 +30,7 @@ Input Parameter: Nothing
 Returns: Nothing
 */
 
+// Making main chain
 struct MainChainNode {
     int memory_size;
     SubChainNode *sub_chain;
