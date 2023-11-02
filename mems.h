@@ -38,6 +38,21 @@ struct MainChainNode {
     struct MainChainNode* prev;
 };
 
+
+struct SubChainNode {
+
+    void* address;
+
+    size_t size;
+
+    int is_mapped;
+
+    struct SubChainNode *prev;
+
+    struct SubChainNode *next;
+
+};
+
 // mems init
 void mems_init() {
 
