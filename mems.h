@@ -38,7 +38,7 @@ struct MainChainNode {
     struct MainChainNode* prev;
 };
 
-
+// mems init
 void mems_init() {
 
     mems_system = (MeMS*)mems_memory;
