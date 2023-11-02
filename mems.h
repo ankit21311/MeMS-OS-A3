@@ -43,7 +43,7 @@ void mems_init() {
 
     mems_system = (MeMS*)mems_memory;
 
-    mems_system.free_list = NULL;
+    mems_system->free_list = NULL;
 
     mems_system->mem_start = &mems_memory[sizeof(MeMS)];
 
