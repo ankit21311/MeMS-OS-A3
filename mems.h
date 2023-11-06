@@ -1,34 +1,20 @@
 /*
-<<<<<<< HEAD
 
 
 
-=======
-
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 All the main functions with respect to the MeMS are inplemented here
-<<<<<<< HEAD
 
 
 
-=======
-
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 read the function discription for more details
 
-<<<<<<< HEAD
 
 
 
 
 
 
-=======
-
-
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 NOTE: DO NOT CHANGE THE NAME OR SIGNATURE OF FUNCTIONS ALREADY PROVIDED
-<<<<<<< HEAD
 
 
 
@@ -36,14 +22,8 @@ you are only allowed to implement the functions
 
 
 
-=======
-
-you are only allowed to implement the functions
-
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 you can also make additional helper functions a you wish
 
-<<<<<<< HEAD
 
 
 
@@ -54,14 +34,7 @@ REFER DOCUMENTATION FOR MORE DETAILS ON FUNCTIONS AND THEIR FUNCTIONALITY
 
 
 
-=======
-
-
-REFER DOCUMENTATION FOR MORE DETAILS ON FUNCTIONS AND THEIR FUNCTIONALITY
-
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 */
-<<<<<<< HEAD
 
 
 
@@ -69,16 +42,9 @@ REFER DOCUMENTATION FOR MORE DETAILS ON FUNCTIONS AND THEIR FUNCTIONALITY
 
 
 
-=======
-
-
-
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 // add other headers as required
 
-#include <stdio.h>
 
-<<<<<<< HEAD
 
 #include <stdio.h>
 
@@ -96,24 +62,11 @@ REFER DOCUMENTATION FOR MORE DETAILS ON FUNCTIONS AND THEIR FUNCTIONALITY
 
 
 
-=======
-#include <stdlib.h>
-
-#include <sys/mman.h>
-
-
-
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 /*
-<<<<<<< HEAD
 
 
 
-=======
-
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 Use this macro where ever you need PAGE_SIZE.
-<<<<<<< HEAD
 
 
 
@@ -130,12 +83,8 @@ macro to make the output of all system same and conduct a fair evaluation.
 
 
 #define PAGE_SIZE 4096
-=======
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-As PAGESIZE can differ system to system we should have flexibility to modify this
 
-<<<<<<< HEAD
 
 
 
@@ -276,7 +225,9 @@ void deallocate_memory_munmap(void *allocatedMemory, size_t size) {
 
 
     // Attempt to deallocate the memory using munmap
+
     int munmapResult ;
+
     munmapResult = munmap(allocatedMemory, size);
 
 
@@ -294,8 +245,6 @@ void deallocate_memory_munmap(void *allocatedMemory, size_t size) {
 
 
     // Inform the user about successful deallocation
-
-    printf("Memory successfully deallocated using munmap !\n");
 
 }
 
@@ -319,64 +268,37 @@ void deallocate_memory_munmap(void *allocatedMemory, size_t size) {
 
 
 
-typedef struct subChainNode
-
-
-
-{
-
-
+typedef struct subChainNode {
 
     struct subChainNode *next;
 
-
-
     struct subChainNode *prev;
 
-
-
-    int type; // 0 for PROCESS and 1 for HOLE
-
-
-
-
-
-
-
-    size_t v_ptr_start_index;
-
-
+    
 
     size_t chunk_size;
 
+    int type; // 0 for PROCESS and 1 for HOLE
 
+    size_t v_ptr_start_index;
+
+    
 
 } subChainNode;
 
 
 
-
-
-
-
-// constructor
-
-
+// Constructor
 
 subChainNode* initializeSubChainNode(int type, size_t size, size_t v_ptr_start_index) {
 
     // Allocate memory for the subChainNode structure
-        if (newNode == NULL) {
-        // Handle memory allocation failure, e.g., return NULL or take other actions.
-        
-        return NULL;
-    }
 
-    subChainNode* newNode = (subChainNode*) allocate_memory_mmap(sizeof(subChainNode));
+    subChainNode* newNode = (subChainNode*)allocate_memory_mmap(sizeof(subChainNode));
 
 
 
-    // Set initial values for next and prev pointers to indicate no linked nodes
+    // Initialize next and prev pointers to indicate no linked nodes
 
     newNode->next = NULL;
 
@@ -386,9 +308,9 @@ subChainNode* initializeSubChainNode(int type, size_t size, size_t v_ptr_start_i
 
     // Assign the provided type, chunk size, and virtual pointer start index
 
-    newNode->type = type;
-
     newNode->chunk_size = size;
+
+    newNode->type = type;
 
     newNode->v_ptr_start_index = v_ptr_start_index;
 
@@ -401,7 +323,17 @@ subChainNode* initializeSubChainNode(int type, size_t size, size_t v_ptr_start_i
 }
 
 
+
+
+
+
+
 /* ------------------- Main Chain Node ------------------- */
+
+
+
+
+
 
 
 // mainChain node structure of free list
@@ -414,18 +346,39 @@ typedef struct chainNode
 
 {
 
+
+
     struct chainNode *next;
 
+
+
     struct chainNode *prev;
+
+
 
     struct subChainNode *subChainHead;
 
 
+
+
+
+
+
     size_t segment_size;
+
+
+
     size_t v_ptr_start;
 
-    void *p_ptr;
+    
+
     void *v_ptr;
+
+
+
+    void *p_ptr;
+
+
 
     void *store_v_to_free;
 
@@ -441,7 +394,11 @@ typedef struct chainNode
 
 chainNode *createChainNode(size_t segment_size)
 
+
+
 {
+
+
 
     chainNode *newNode = (chainNode *)allocate_memory_mmap(sizeof(chainNode));
 
@@ -449,7 +406,11 @@ chainNode *createChainNode(size_t segment_size)
 
     newNode->next = NULL;
 
+
+
     newNode->prev = NULL;
+
+
 
     newNode->subChainHead = NULL;
 
@@ -480,10 +441,6 @@ chainNode *createChainNode(size_t segment_size)
 
 
     newNode->p_ptr = allocate_memory_mmap(segment_size);
-
-
-
-
 
 
 
@@ -525,8 +482,6 @@ chainNode *createChainNode(size_t segment_size)
 
 
 
-
-
 /*
 
 
@@ -552,85 +507,33 @@ Input Parameter: Nothing
 
 
 Returns: Nothing
-=======
-macro to make the output of all system same and conduct a fair evaluation.
+
+
 
 */
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
-
-<<<<<<< HEAD
-=======
-#define PAGE_SIZE 4096
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
 
-<<<<<<< HEAD
-*/
-=======
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
-=======
-// Define a flag for anonymous mapping
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
-
-<<<<<<< HEAD
-=======
-#define MAP_ANONYMOUS 0x20
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
-
-<<<<<<< HEAD
 void mems_init()
-=======
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
 
-<<<<<<< HEAD
-=======
-// global variables
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
 {
-=======
-struct chainNode *memoryChainHead;
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
-
-<<<<<<< HEAD
-=======
-size_t virtualAddressStart;
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
 
-<<<<<<< HEAD
+
     memoryChainHead = NULL;
-=======
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
-
-<<<<<<< HEAD
-=======
-/* ------------------- mmap and munmap ------------------- */
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
 
-<<<<<<< HEAD
+
     virtualAddressStart = 1000;
-=======
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
 
 
 }
-=======
-void *allocate_memory_mmap(size_t size)
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-{ // Checking if size is valid
 
-      if (size == 0) {
 
-<<<<<<< HEAD
 
 
 
@@ -708,39 +611,16 @@ void mems_deallocate_chain() {
 
 
 void mems_finish() {
-=======
-        printf("Invalid memory allocation size: 0\n");
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
     mems_deallocate_chain();
-=======
-        return NULL;
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
     mems_init();
-=======
-    }
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
 }
-=======
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
 
-<<<<<<< HEAD
-=======
-    // Calculate aligned memory size to match page boundaries
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
-=======
-    size_t alignedSize = (size + PAGE_SIZE - 1) & ~(PAGE_SIZE - 1);
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
 
 
 
@@ -750,7 +630,7 @@ void mems_finish() {
 
 void adjustSubChainNode(subChainNode *node, size_t size, size_t index) {
 
-  if (node->chunk_size <= size) {
+  if (node->chunk_size == size || node->chunk_size < size) {
 
     return; // No need to split if the existing size is smaller or equal to the requested size
 
@@ -768,11 +648,13 @@ void adjustSubChainNode(subChainNode *node, size_t size, size_t index) {
 
   newNode->next = node->next;
 
-  if (node->next != NULL) {
+  if (node != NULL && node->next != NULL) {
 
     node->next->prev = newNode;
 
-  }
+}
+
+
 
 
 
@@ -789,11 +671,8 @@ void adjustSubChainNode(subChainNode *node, size_t size, size_t index) {
   node->chunk_size = size;
 
 }
-=======
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
 
-<<<<<<< HEAD
 
 /* --------------------------------------------------------- */
 
@@ -804,11 +683,7 @@ void adjustSubChainNode(subChainNode *node, size_t size, size_t index) {
 
 
 /*
-=======
-    // Allocate aligned memory using mmap
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
 
 
 Allocates memory of the specified size by reusing a segment from the free list if
@@ -828,11 +703,7 @@ Else, uses the mmap system call to allocate more memory on the heap and updates
 
 
 the free list accordingly.
-=======
-    void *allocatedMemory = mmap(NULL, alignedSize, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
 
 
 
@@ -852,11 +723,7 @@ Parameter: The size of the memory the user program wants
 
 
 Returns: MeMS Virtual address (that is created by MeMS)
-=======
-    if (allocatedMemory == MAP_FAILED) {
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
 
 
 */
@@ -873,7 +740,7 @@ void *mems_malloc(size_t size)
 
     size_t newNodesize ;
 
-    newNodesize = ((size + PAGE_SIZE - 1) / PAGE_SIZE) * PAGE_SIZE;
+    newNodesize = (size + PAGE_SIZE - 1) / PAGE_SIZE * PAGE_SIZE;
 
 
 
@@ -977,7 +844,11 @@ void *mems_malloc(size_t size)
 
 
 
-                return temp->v_ptr + subTemp->v_ptr_start_index;
+                // Calculate and return the final pointer value by adding the offsets
+
+		return temp->v_ptr + subTemp->v_ptr_start_index;
+
+
 
 
 
@@ -1046,13 +917,8 @@ void *mems_malloc(size_t size)
 
 
 }
-=======
-        printf("Error allocating memory using mmap\n");
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-        return NULL;
 
-<<<<<<< HEAD
 
 
 
@@ -1087,11 +953,7 @@ Returns: Nothing but should print the necessary information on STDOUT
 
 
 */
-=======
-    }
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
 
 
 void mems_print_stats()
@@ -1114,19 +976,17 @@ void mems_print_stats()
 
 
 
-    for (chainNode *temp = memoryChainHead; temp != NULL; temp = temp->next)
+	chainNode *temp = memoryChainHead;
+
+	while (temp != NULL) {
+
+	    main_chain_length = main_chain_length + 1;
+
+	    temp = temp->next;
+
+	}
 
 
-
-    {
-
-
-
-        main_chain_length = main_chain_length + 1 ;
-
-
-
-    }
 
 
 
@@ -1166,17 +1026,19 @@ void mems_print_stats()
 
         printf("MAIN[%lu:%lu]-> ", temp->v_ptr_start, temp->v_ptr_start + temp->segment_size - 1);
 
+        
+
+        size_t subchain_length ;
+
+        subchain_length = 0;
 
 
-        size_t subchain_length = 0;
 
 
 
+	int d ;
 
-
-
-
-        int d = temp->v_ptr_start;
+        d = temp->v_ptr_start;
 
 
 
@@ -1224,7 +1086,7 @@ void mems_print_stats()
 
 
 
-            subchain_length++;
+            subchain_length = subchain_length + 1 ;
 
 
 
@@ -1305,11 +1167,8 @@ void mems_print_stats()
 
 
 }
-=======
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
 
-<<<<<<< HEAD
 
 
 
@@ -1343,42 +1202,25 @@ void *mems_get(void *v_ptr)
 
 
 
-    for (chainNode *temp = memoryChainHead; temp != NULL; temp = temp->next)
+	chainNode *temp = memoryChainHead;
 
 
 
-    {
+	while (temp != NULL) {
+
+	    if (temp->v_ptr <= v_ptr && v_ptr < temp->v_ptr + temp->segment_size) {
+
+	        return temp->p_ptr + (size_t)v_ptr - (size_t)temp->v_ptr;
+
+	    }
+
+	    temp = temp->next;
+
+	}
+
+	}
 
 
-
-        if (temp->v_ptr <= v_ptr && v_ptr < temp->v_ptr + temp->segment_size)
-
-
-
-        {
-
-
-
-            return temp->p_ptr + (size_t)v_ptr - (size_t)temp->v_ptr;
-
-
-
-        }
-
-
-
-    }
-
-
-
-}
-=======
-    // Return allocated memory pointer
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
-
-    return allocatedMemory;
-
-<<<<<<< HEAD
 
 
 
@@ -1509,11 +1351,7 @@ Returns: nothing
 
 
 */
-=======
-}
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
 
-<<<<<<< HEAD
 
 
 void mems_free(void *v_ptr)
@@ -1524,89 +1362,44 @@ void mems_free(void *v_ptr)
 
 
 
-    for (chainNode *temp = memoryChainHead; temp != NULL; temp = temp->next)
+for (chainNode *currentNode = memoryChainHead; currentNode != NULL; currentNode = currentNode->next) {
+
+    // Check if v_ptr is within the range of the current node
+
+    if (v_ptr >= currentNode->v_ptr && v_ptr < currentNode->v_ptr + currentNode->segment_size) {
+
+        // Calculate the index within the current node
+
+        size_t index ;
+
+        index = v_ptr - currentNode->v_ptr;
 
 
 
-    {
+        // Traverse the sub-chain
 
+for (subChainNode *subNode = currentNode->subChainHead; subNode != NULL; subNode = subNode->next) {
 
+    if (subNode->v_ptr_start_index == index) {
 
-        if (temp->v_ptr <= v_ptr && v_ptr < temp->v_ptr + temp->segment_size)
+        subNode->type = 1;
 
+        fragment_memory(currentNode->subChainHead);
 
+        return;
 
-        {
-
-        
-
-            size_t index ;
-
-
-
-            index = (size_t)v_ptr - (size_t)temp->v_ptr;
-
-
-
-            subChainNode *subTemp = temp->subChainHead;
-
-
-
-            while (subTemp != NULL)
-
-
-
-            {
-
-
-
-                if (subTemp->v_ptr_start_index == index)
-
-
-
-                {
-
-
-
-                    subTemp->type = 1;
-
-
-
-                    fragment_memory(temp->subChainHead);
-
-
-
-                    break;
-
-
-
-                }
-
-
-
-                subTemp = subTemp->next;
-
-
-
-            }
-
-
-
-            break;
-
-
-
-        }
-
-
+    }
 
     }
 
 
 
+	}
+
 }
-=======
 
 
 
->>>>>>> bb26461765c892fafc74e71cb3f65b83562fc389
+
+
+}
