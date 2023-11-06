@@ -441,11 +441,7 @@ typedef struct chainNode
 
 chainNode *createChainNode(size_t segment_size)
 
-
-
 {
-
-
 
     chainNode *newNode = (chainNode *)allocate_memory_mmap(sizeof(chainNode));
 
