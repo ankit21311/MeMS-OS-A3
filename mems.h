@@ -366,6 +366,11 @@ typedef struct subChainNode
 subChainNode* initializeSubChainNode(int type, size_t size, size_t v_ptr_start_index) {
 
     // Allocate memory for the subChainNode structure
+        if (newNode == NULL) {
+        // Handle memory allocation failure, e.g., return NULL or take other actions.
+        
+        return NULL;
+    }
 
     subChainNode* newNode = (subChainNode*) allocate_memory_mmap(sizeof(subChainNode));
 
