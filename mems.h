@@ -404,11 +404,6 @@ subChainNode* initializeSubChainNode(int type, size_t size, size_t v_ptr_start_i
 /* ------------------- Main Chain Node ------------------- */
 
 
-
-
-
-
-
 // mainChain node structure of free list
 
 
@@ -419,43 +414,18 @@ typedef struct chainNode
 
 {
 
-
-
     struct chainNode *next;
 
-
-
     struct chainNode *prev;
-
-
 
     struct subChainNode *subChainHead;
 
 
-
-
-
-
-
     size_t segment_size;
-
-
-
     size_t v_ptr_start;
 
-
-
     void *p_ptr;
-
-
-
     void *v_ptr;
-
-
-
-
-
-
 
     void *store_v_to_free;
 
@@ -483,11 +453,7 @@ chainNode *createChainNode(size_t segment_size)
 
     newNode->next = NULL;
 
-
-
     newNode->prev = NULL;
-
-
 
     newNode->subChainHead = NULL;
 
