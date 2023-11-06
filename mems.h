@@ -401,13 +401,6 @@ subChainNode* initializeSubChainNode(int type, size_t size, size_t v_ptr_start_i
 }
 
 
-
-
-
-
-
-
-
 /* ------------------- Main Chain Node ------------------- */
 
 
